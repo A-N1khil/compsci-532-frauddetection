@@ -1,4 +1,4 @@
-package spendreport.model;
+package spendreport.detailed.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

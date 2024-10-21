@@ -2,8 +2,8 @@ package spendreport.detailed;
 
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
-import spendreport.model.DetailedAlert;
-import spendreport.model.DetailedTransaction;
+import spendreport.detailed.model.DetailedAlert;
+import spendreport.detailed.model.DetailedTransaction;
 
 public class DetailedFraudDetector extends KeyedProcessFunction<Long, DetailedTransaction, DetailedAlert> {
 

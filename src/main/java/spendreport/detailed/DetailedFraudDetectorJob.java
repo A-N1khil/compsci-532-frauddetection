@@ -3,7 +3,7 @@ package spendreport.detailed;
 import lombok.SneakyThrows;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import spendreport.model.DetailedTransaction;
+import spendreport.detailed.model.DetailedTransaction;
 
 public class DetailedFraudDetectorJob {
 
