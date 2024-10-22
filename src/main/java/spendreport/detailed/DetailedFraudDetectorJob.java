@@ -15,8 +15,11 @@ public class DetailedFraudDetectorJob {
 
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        // Set this flag to run bounded or not
+        boolean bounded = false;
+
         DataStream<DetailedTransaction> transactions = environment
-            .addSource(new DetailedTransactionSource())
+            .addSource(new DetailedTransactionSource(bounded))
             .name("transactions");
 
         DataStream<DetailedAlert> alerts = transactions
