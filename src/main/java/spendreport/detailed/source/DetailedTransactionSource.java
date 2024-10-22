@@ -11,8 +11,10 @@ import java.util.Iterator;
 public class DetailedTransactionSource extends FromIteratorFunction<DetailedTransaction> {
     private static final long serialVersionUID = 1L;
 
-    public DetailedTransactionSource() {
-        super(new RateLimitedIterator<>(DetailedTransactionIterator.unbounded()));
+    public DetailedTransactionSource(boolean bounded) {
+        super(new RateLimitedIterator<>(
+                bounded ? DetailedTransactionIterator.bounded() : DetailedTransactionIterator.unbounded()
+        ));
     }
 
     private static class RateLimitedIterator<T> implements Iterator<T>, Serializable {

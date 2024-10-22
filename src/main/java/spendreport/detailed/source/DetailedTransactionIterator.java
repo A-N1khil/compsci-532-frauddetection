@@ -53,7 +53,7 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
      * The list of detailed transactions to iterate over.
      * For the purpose of this assignment, we will use a fixed list of transactions.
      */
-    private static List<DetailedTransaction> detailedTransactions;
+    private static List<DetailedTransaction> detailedTransactions = Lists.newArrayList();
 
     private int runningIndex = 0;
 
@@ -70,69 +70,66 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
     private void initData() {
         detailedTransactions.addAll(
                 Lists.newArrayList(
-                        new DetailedTransaction(1, 0L, 45.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 600.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 25.50, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 30.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 800.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 15.75, ZIP_CODE_3),   
-                        new DetailedTransaction(2, 0L, 900.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 20.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 50.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 750.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 45.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 500.50, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 40.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 25.75, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 850.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 35.00, ZIP_CODE_3),   
-                        new DetailedTransaction(2, 0L, 920.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 15.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 700.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 950.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 49.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 675.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 30.50, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 40.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 999.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 10.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 870.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 35.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 48.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 510.00, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 20.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 520.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 29.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 60.00, ZIP_CODE_1),   // Faulty pattern starts (low)
-                        new DetailedTransaction(4, 0L, 1000.00, ZIP_CODE_1),  // Faulty pattern continues (high)
-                        new DetailedTransaction(5, 0L, 49.50, ZIP_CODE_2),   
-                        new DetailedTransaction(1, 0L, 515.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 48.50, ZIP_CODE_2),   // Faulty pattern starts (low)
-                        new DetailedTransaction(2, 0L, 910.00, ZIP_CODE_2),   // Faulty pattern continues (high)
-                        new DetailedTransaction(3, 0L, 45.00, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 900.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 25.00, ZIP_CODE_2),   // Faulty pattern starts (low)
-                        new DetailedTransaction(5, 0L, 970.00, ZIP_CODE_2),   // Faulty pattern continues (high)
-                        new DetailedTransaction(1, 0L, 47.00, ZIP_CODE_1),   
-                        new DetailedTransaction(2, 0L, 800.00, ZIP_CODE_2),   
-                        new DetailedTransaction(3, 0L, 42.50, ZIP_CODE_3),   
-                        new DetailedTransaction(4, 0L, 985.00, ZIP_CODE_1),   
-                        new DetailedTransaction(5, 0L, 38.00, ZIP_CODE_2)   
-
+                        new DetailedTransaction(1, 0L, 7.25, ZIP_CODE_1),
+                        new DetailedTransaction(2, 0L, 850.75, ZIP_CODE_2),
+                        new DetailedTransaction(3, 0L, 9.50, ZIP_CODE_3),
+                        new DetailedTransaction(4, 0L, 8.30, ZIP_CODE_1),   // Faulty pattern starts
+                        new DetailedTransaction(4, 0L, 1000.00, ZIP_CODE_1), // Faulty pattern continues
+                        new DetailedTransaction(5, 0L, 600.00, ZIP_CODE_2),
+                        new DetailedTransaction(1, 0L, 6.00, ZIP_CODE_3),
+                        new DetailedTransaction(3, 0L, 900.00, ZIP_CODE_3),
+                        new DetailedTransaction(2, 0L, 5.50, ZIP_CODE_2),   // Faulty pattern starts
+                        new DetailedTransaction(2, 0L, 950.00, ZIP_CODE_2), // Faulty pattern continues
+                        new DetailedTransaction(1, 0L, 7.75, ZIP_CODE_1),
+                        new DetailedTransaction(4, 0L, 650.00, ZIP_CODE_1),
+                        new DetailedTransaction(5, 0L, 5.25, ZIP_CODE_2),   // Faulty pattern starts
+                        new DetailedTransaction(5, 0L, 700.00, ZIP_CODE_2), // Faulty pattern continues
+                        new DetailedTransaction(3, 0L, 5.00, ZIP_CODE_3),
+                        new DetailedTransaction(1, 0L, 750.50, ZIP_CODE_1),
+                        new DetailedTransaction(2, 0L, 850.25, ZIP_CODE_2),
+                        new DetailedTransaction(4, 0L, 8.10, ZIP_CODE_1),   // Faulty pattern starts
+                        new DetailedTransaction(4, 0L, 950.00, ZIP_CODE_1), // Faulty pattern continues
+                        new DetailedTransaction(5, 0L, 900.50, ZIP_CODE_3),
+                        new DetailedTransaction(3, 0L, 9.75, ZIP_CODE_3),
+                        new DetailedTransaction(1, 0L, 6.75, ZIP_CODE_1),
+                        new DetailedTransaction(2, 0L, 850.50, ZIP_CODE_2),
+                        new DetailedTransaction(3, 0L, 8.00, ZIP_CODE_3),   // Faulty pattern starts
+                        new DetailedTransaction(3, 0L, 900.00, ZIP_CODE_3), // Faulty pattern continues
+                        new DetailedTransaction(4, 0L, 850.00, ZIP_CODE_1),
+                        new DetailedTransaction(5, 0L, 600.00, ZIP_CODE_2),
+                        new DetailedTransaction(1, 0L, 5.90, ZIP_CODE_1),   // Faulty pattern starts
+                        new DetailedTransaction(1, 0L, 950.00, ZIP_CODE_1), // Faulty pattern continues
+                        new DetailedTransaction(2, 0L, 650.00, ZIP_CODE_2),
+                        new DetailedTransaction(3, 0L, 6.30, ZIP_CODE_3),
+                        new DetailedTransaction(4, 0L, 5.50, ZIP_CODE_1),   // Faulty pattern starts
+                        new DetailedTransaction(4, 0L, 1000.00, ZIP_CODE_1), // Faulty pattern continues
+                        new DetailedTransaction(5, 0L, 900.00, ZIP_CODE_2),
+                        new DetailedTransaction(1, 0L, 9.00, ZIP_CODE_1),
+                        new DetailedTransaction(2, 0L, 850.00, ZIP_CODE_2),
+                        new DetailedTransaction(3, 0L, 7.25, ZIP_CODE_3),
+                        new DetailedTransaction(4, 0L, 700.00, ZIP_CODE_1),
+                        new DetailedTransaction(5, 0L, 9.80, ZIP_CODE_2),   // Faulty pattern starts
+                        new DetailedTransaction(5, 0L, 950.00, ZIP_CODE_2), // Faulty pattern continues
+                        new DetailedTransaction(1, 0L, 6.50, ZIP_CODE_1),
+                        new DetailedTransaction(2, 0L, 5.75, ZIP_CODE_2),
+                        new DetailedTransaction(3, 0L, 950.00, ZIP_CODE_3),
+                        new DetailedTransaction(4, 0L, 8.90, ZIP_CODE_1),   // Faulty pattern starts
+                        new DetailedTransaction(4, 0L, 900.00, ZIP_CODE_1), // Faulty pattern continues
+                        new DetailedTransaction(5, 0L, 850.50, ZIP_CODE_2)
                 )
         );
     }
 
     @Override
     public boolean hasNext() {
-        if (runningIndex > detailedTransactions.size() - 1) {
-            if (this.isBounded()) {
-                return false;
-            } else {
-                this.setRunningIndex(0);
-            }
+        if (runningIndex < detailedTransactions.size()) {
+            return true;
+        } else if (!bounded) {
+            runningIndex = 0;
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     @Override
