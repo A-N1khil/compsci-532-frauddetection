@@ -19,16 +19,16 @@ public class DetailedFraudDetectorJob {
         boolean bounded = false;
 
         DataStream<DetailedTransaction> transactions = environment
-            .addSource(new DetailedTransactionSource(bounded))
-            .name("transactions");
+                .addSource(new DetailedTransactionSource(bounded))
+                .name("transactions");
 
         DataStream<DetailedAlert> alerts = transactions
-            .keyBy(DetailedTransaction::getAccountId)
-            .process(new DetailedFraudDetector())
-            .name("detailed-fraud-detector");
+                .keyBy(DetailedTransaction::getAccountId)
+                .process(new DetailedFraudDetector())
+                .name("detailed-fraud-detector");
 
         alerts.addSink(new DetailedAlertSink())
-            .name("send-detailed-alerts");
+                .name("send-detailed-alerts");
 
         environment.execute("Detailed Fraud Detector");
     }

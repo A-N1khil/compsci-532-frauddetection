@@ -22,39 +22,27 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
 
     // Use Instant here to get the current time as long epoch milliseconds
     private static final Timestamp INITIAL_TIMESTAMP = new Timestamp(Instant.now().toEpochMilli());
-    
+
     // Define zip code constants for cleaner code
     private static final String ZIP_CODE_1 = "01003";
     private static final String ZIP_CODE_2 = "02115";
     private static final String ZIP_CODE_3 = "78712";
-
-    static DetailedTransactionIterator unbounded() {
-        return new DetailedTransactionIterator(false);
-    }
-
-    static DetailedTransactionIterator bounded() {
-        return new DetailedTransactionIterator(true);
-    }
-
+    /**
+     * The list of detailed transactions to iterate over.
+     * For the purpose of this assignment, we will use a fixed list of transactions.
+     */
+    private static List<DetailedTransaction> detailedTransactions = Lists.newArrayList();
     /**
      * Flag to indicate whether the iterator is bounded.
      * If bounded, the iterator will stop returning elements after the last one
      * If unbounded, the iterator will never stop returning elements. It will continue in a round-robin fashion.
      */
     private final boolean bounded;
-
     /**
      * The timestamp of the last element returned by the iterator.
      * This is used to specify the timestamp of the next element.
      */
     private long timestamp;
-
-    /**
-     * The list of detailed transactions to iterate over.
-     * For the purpose of this assignment, we will use a fixed list of transactions.
-     */
-    private static List<DetailedTransaction> detailedTransactions = Lists.newArrayList();
-
     private int runningIndex = 0;
 
     public DetailedTransactionIterator() {
@@ -65,6 +53,14 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
         this.bounded = bounded;
         this.timestamp = INITIAL_TIMESTAMP.getTime();
         initData();
+    }
+
+    static DetailedTransactionIterator unbounded() {
+        return new DetailedTransactionIterator(false);
+    }
+
+    static DetailedTransactionIterator bounded() {
+        return new DetailedTransactionIterator(true);
     }
 
     private void initData() {
@@ -139,7 +135,7 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
 
         // Keep a time of 5 minutes between transactions
         // Note that this is just a mock timestamp and not be confused with the logic
-        timestamp += 5*60*1000; // 5 minutes
+        timestamp += 5 * 60 * 1000; // 5 minutes
         return detailedTransaction;
     }
 }
