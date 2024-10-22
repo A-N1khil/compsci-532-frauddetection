@@ -14,7 +14,7 @@ public class DetailedFraudDetector extends KeyedProcessFunction<Long, DetailedTr
     private static final long ONE_MINUTE = 60 * 1000L;
 
     @Override
-    public void processElement(DetailedTransaction detailedTransaction, KeyedProcessFunction<Long, DetailedTransaction, DetailedAlert>.Context context, Collector<DetailedAlert> collector) throws Exception {
+    public void processElement(DetailedTransaction detailedTransaction, Context context, Collector<DetailedAlert> collector) throws Exception {
 
         DetailedAlert detailedAlert = new DetailedAlert();
         detailedAlert.setId(detailedTransaction.getAccountId());

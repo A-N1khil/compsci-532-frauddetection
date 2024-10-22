@@ -1,11 +1,13 @@
 package spendreport.detailed.source;
 
+import org.apache.flink.annotation.Public;
 import org.apache.flink.streaming.api.functions.source.FromIteratorFunction;
 import spendreport.detailed.model.DetailedTransaction;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
+@Public
 public class DetailedTransactionSource extends FromIteratorFunction<DetailedTransaction> {
     private static final long serialVersionUID = 1L;
 

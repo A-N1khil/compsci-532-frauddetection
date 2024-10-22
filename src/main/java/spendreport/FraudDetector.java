@@ -47,6 +47,7 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 			Context context,
 			Collector<Alert> collector) throws Exception {
 
+		/*
 		Boolean isLastTransactionSmall = flagState.value();
 
 		if (isLastTransactionSmall != null) {
@@ -71,6 +72,11 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 		if (transaction.getAmount() < SMALL_AMOUNT) {
 			flagState.update(true);
 		}
+		*/
+
+		Alert alert = new Alert();
+		alert.setId(transaction.getAccountId());
+		collector.collect(alert);
 	}
 
 	@Override

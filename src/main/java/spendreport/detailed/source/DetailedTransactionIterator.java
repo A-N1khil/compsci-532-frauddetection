@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable {
+final class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,19 +53,22 @@ public class DetailedTransactionIterator implements Iterator<DetailedTransaction
      * The list of detailed transactions to iterate over.
      * For the purpose of this assignment, we will use a fixed list of transactions.
      */
-    private final List<DetailedTransaction> detailedTransactions;
+    private static List<DetailedTransaction> detailedTransactions;
 
     private int runningIndex = 0;
+
+    public DetailedTransactionIterator() {
+        this(false);
+    }
 
     private DetailedTransactionIterator(boolean bounded) {
         this.bounded = bounded;
         this.timestamp = INITIAL_TIMESTAMP.getTime();
-        this.detailedTransactions = Lists.newArrayList();
         initData();
     }
 
     private void initData() {
-        this.detailedTransactions.addAll(
+        detailedTransactions.addAll(
                 Lists.newArrayList(
                         new DetailedTransaction(1, 0L, 45.00, ZIP_CODE_1),   
                         new DetailedTransaction(2, 0L, 600.00, ZIP_CODE_2),   
@@ -122,7 +125,7 @@ public class DetailedTransactionIterator implements Iterator<DetailedTransaction
 
     @Override
     public boolean hasNext() {
-        if (this.getRunningIndex() > this.getDetailedTransactions().size() - 1) {
+        if (runningIndex > detailedTransactions.size() - 1) {
             if (this.isBounded()) {
                 return false;
             } else {
@@ -133,9 +136,9 @@ public class DetailedTransactionIterator implements Iterator<DetailedTransaction
     }
 
     @Override
-    public DetailedTransaction next() {
-        DetailedTransaction detailedTransaction = this.detailedTransactions.get(this.runningIndex++);
-        detailedTransaction.setTimestamp(this.timestamp);
+    public DetailedTransaction next() { // NOSONAR
+        DetailedTransaction detailedTransaction = detailedTransactions.get(runningIndex++);
+        detailedTransaction.setTimestamp(timestamp);
 
         // Keep a time of 5 minutes between transactions
         // Note that this is just a mock timestamp and not be confused with the logic
