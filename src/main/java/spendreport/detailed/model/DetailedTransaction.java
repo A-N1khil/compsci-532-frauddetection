@@ -22,5 +22,5 @@ public class DetailedTransaction {
     private long accountId;
     private long timestamp;
     private double amount;
-    private Integer zipCode;
+    private String zipCode;
 }

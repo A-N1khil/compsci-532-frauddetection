@@ -1,21 +1,21 @@
-package spendreport.detailed;
+package spendreport.detailed.source;
 
-import org.apache.flink.walkthrough.common.source.TransactionIterator;
-import org.apache.flink.walkthrough.common.source.TransactionSource;
+import org.apache.flink.streaming.api.functions.source.FromIteratorFunction;
+import spendreport.detailed.model.DetailedTransaction;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
-public class DetailedTransactionSource {
+public class DetailedTransactionSource extends FromIteratorFunction<DetailedTransaction> {
     private static final long serialVersionUID = 1L;
 
     public DetailedTransactionSource() {
-        super(new RateLimitedIterator(TransactionIterator.unbounded()));
+        super(new RateLimitedIterator<>(DetailedTransactionIterator.unbounded()));
     }
 
     private static class RateLimitedIterator<T> implements Iterator<T>, Serializable {
         private static final long serialVersionUID = 1L;
-        private final Iterator<T> inner;
+        private final Iterator<T> inner; // NOSONAR
 
         private RateLimitedIterator(Iterator<T> inner) {
             this.inner = inner;
