@@ -116,9 +116,7 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
                         new DetailedTransaction(4, 0L, 8.90, ZIP_CODE_1),   // Faulty pattern starts
                         new DetailedTransaction(4, 0L, 900.00, ZIP_CODE_1), // Faulty pattern continues
                         new DetailedTransaction(5, 0L, 850.50, ZIP_CODE_2)
-
-
-                        )
+                )
         );
     }
 
