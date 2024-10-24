@@ -10,13 +10,14 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * An iterator for the detailed transaction events.
  */
 @Getter
 @Setter
-final class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable {
+public final class DetailedTransactionIterator implements Iterator<DetailedTransaction>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,40 +28,65 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
     private static final String ZIP_CODE_1 = "01003";
     private static final String ZIP_CODE_2 = "02115";
     private static final String ZIP_CODE_3 = "78712";
+
+    static DetailedTransactionIterator randomized() {
+        return new DetailedTransactionIterator(true);
+    }
+
+    static DetailedTransactionIterator fixed() {
+        return new DetailedTransactionIterator(false);
+    }
+
     /**
      * The list of detailed transactions to iterate over.
      * For the purpose of this assignment, we will use a fixed list of transactions.
      */
     private static List<DetailedTransaction> detailedTransactions = Lists.newArrayList();
+
     /**
      * Flag to indicate whether the iterator is bounded.
      * If bounded, the iterator will stop returning elements after the last one
      * If unbounded, the iterator will never stop returning elements. It will continue in a round-robin fashion.
      */
-    private final boolean bounded;
+    private final static boolean BOUNDED = false;
+
     /**
      * The timestamp of the last element returned by the iterator.
      * This is used to specify the timestamp of the next element.
      */
     private long timestamp;
+
+    /**
+     * Flag to indicate whether a random set should be chosen or the hardcoded one.
+     */
+    private final boolean isRandomized;
+
+    /**
+     * The running index of the iterator.
+     */
     private int runningIndex = 0;
 
+    private static final List<Integer> ACCOUNT_ID = Lists.newArrayList(1, 2, 3, 4, 5);
+    private static final List<String> ZIP_CODES = Lists.newArrayList(ZIP_CODE_1, ZIP_CODE_2, ZIP_CODE_3);
+
+    /**
+     * A randomizer to generate random data.
+     */
+    private static final Random RANDOMIZER = new Random();
+
+
     public DetailedTransactionIterator() {
-        this(false);
+        this(true);
     }
 
-    private DetailedTransactionIterator(boolean bounded) {
-        this.bounded = bounded;
+    private DetailedTransactionIterator(boolean isRandomized) {
+        this.isRandomized = isRandomized;
         this.timestamp = INITIAL_TIMESTAMP.getTime();
-        initData();
-    }
 
-    static DetailedTransactionIterator unbounded() {
-        return new DetailedTransactionIterator(false);
-    }
-
-    static DetailedTransactionIterator bounded() {
-        return new DetailedTransactionIterator(true);
+        // Initialize the data if not randomized
+        if (!isRandomized) {
+            initData();
+        }
     }
 
     private void initData() {
@@ -120,7 +146,7 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
     public boolean hasNext() {
         if (runningIndex < detailedTransactions.size()) {
             return true;
-        } else if (!bounded) {
+        } else if (!BOUNDED) {
             runningIndex = 0;
             return true;
         } else {
@@ -130,12 +156,30 @@ final class DetailedTransactionIterator implements Iterator<DetailedTransaction>
 
     @Override
     public DetailedTransaction next() { // NOSONAR
-        DetailedTransaction detailedTransaction = detailedTransactions.get(runningIndex++);
-        detailedTransaction.setTimestamp(timestamp);
 
-        // Keep a time of 5 minutes between transactions
-        // Note that this is just a mock timestamp and not be confused with the logic
-        timestamp += 5 * 60 * 1000; // 5 minutes
+        DetailedTransaction detailedTransaction;
+
+        if (this.isRandomized) {
+            // Generate a random accountId
+            int accountIdIndex = RANDOMIZER.nextInt(0, ACCOUNT_ID.size());
+            long accountId = ACCOUNT_ID.get(accountIdIndex);
+
+            // Generate amount
+            double amount = RANDOMIZER.nextDouble(0, 1000);
+
+            // Generate zipCode
+            int zipCodeIndex = RANDOMIZER.nextInt(0, ZIP_CODES.size());
+            String zipCode = ZIP_CODES.get(zipCodeIndex);
+
+            detailedTransaction = new DetailedTransaction(accountId, timestamp, amount, zipCode);
+        } else {
+            detailedTransaction = detailedTransactions.get(runningIndex++);
+            detailedTransaction.setTimestamp(timestamp);
+
+        }
+        // Increment the transaction by one minute
+        timestamp += 60 * 1000L;
+
         return detailedTransaction;
     }
 }

@@ -15,11 +15,11 @@ public class DetailedFraudDetectorJob {
 
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // Set this flag to run bounded or not
-        boolean bounded = false;
+        // Set this flag to run with randomized parameters or not
+        boolean isRandomized = true;
 
         DataStream<DetailedTransaction> transactions = environment
-                .addSource(new DetailedTransactionSource(bounded))
+                .addSource(new DetailedTransactionSource(isRandomized))
                 .name("transactions");
 
         DataStream<DetailedAlert> alerts = transactions

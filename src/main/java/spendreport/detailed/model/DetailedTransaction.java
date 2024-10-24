@@ -17,8 +17,6 @@ import lombok.ToString;
 @ToString
 public class DetailedTransaction {
 
-    private static final long serialVersionUID = 1L;
-
     private long accountId;
     private long timestamp;
     private double amount;

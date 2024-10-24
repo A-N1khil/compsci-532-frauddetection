@@ -11,9 +11,16 @@ import java.util.Iterator;
 public class DetailedTransactionSource extends FromIteratorFunction<DetailedTransaction> {
     private static final long serialVersionUID = 1L;
 
-    public DetailedTransactionSource(boolean bounded) {
+    /**
+     * Creates a new DetailedTransactionSource that produces the given transactions.
+     * If true is passed, the transactions are produced in a randomized properties.
+     * If false is passed, the transactions are produced from a fixed set of transactions.
+     *
+     * @param randomized Should the properties of the transactions be randomized.
+     */
+    public DetailedTransactionSource(boolean randomized) {
         super(new RateLimitedIterator<>(
-                bounded ? DetailedTransactionIterator.bounded() : DetailedTransactionIterator.unbounded()
+                randomized ? DetailedTransactionIterator.randomized() : DetailedTransactionIterator.fixed()
         ));
     }
 
